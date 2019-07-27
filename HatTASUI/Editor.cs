@@ -893,6 +893,10 @@ namespace HatTASUI
             {
                 btnSave_Click(this, null);
             }
+			else if (btnOpen.Enabled && e.Control && e.KeyCode.ToString() == "O")
+			{
+				btnOpen_Click(this, null);
+			}
         }
     }
 }

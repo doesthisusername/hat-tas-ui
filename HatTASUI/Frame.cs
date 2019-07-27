@@ -59,12 +59,12 @@ namespace HatTASUI
 
 			if (!string.IsNullOrEmpty(Comment))
             {
-				while (TextRenderer.MeasureText(result, font).Width < listWidth - (int)(listWidth / 3.5f))
+				while (TextRenderer.MeasureText(result, font).Width < listWidth - (int)(listWidth / 2.4f))
 				{
 					result += ' ';
 				}
 
-				result += Comment;
+				result += ' ' + Comment;
             }
 
 			return result;
