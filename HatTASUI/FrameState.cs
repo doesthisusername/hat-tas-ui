@@ -9,10 +9,10 @@ namespace HatTASUI
         public FrameState()
         {
             Inputs = new Dictionary<string, float>();
-            Inputs["LX"] = Editor.STICK_MAX / 2;
-            Inputs["LY"] = Editor.STICK_MAX / 2;
-            Inputs["RX"] = Editor.STICK_MAX / 2;
-            Inputs["RY"] = Editor.STICK_MAX / 2;
+            Inputs["LX"] = Editor.STICK_MID;
+            Inputs["LY"] = Editor.STICK_MID;
+            Inputs["RX"] = Editor.STICK_MID;
+            Inputs["RY"] = Editor.STICK_MID;
             Inputs["A"] = 0;
             Inputs["B"] = 0;
             Inputs["X"] = 0;

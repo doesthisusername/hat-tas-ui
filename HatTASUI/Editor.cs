@@ -8,7 +8,10 @@ namespace HatTASUI
 {
     public partial class Editor : Form
     {
-        public const int STICK_MAX = 65535;
+		public const int STICK_MIN = -32768;
+		public const int STICK_MID = 0;
+        public const int STICK_MAX = 32767;
+		public const int STICK_RANGE = 65535;
 
         public List<Frame> Frames { get; set; }
         public Metadata Metadata { get; set; }
@@ -84,7 +87,7 @@ namespace HatTASUI
             }
             set
             {
-                _LeftX = Math.Max(Math.Min(value, STICK_MAX), 0);
+                _LeftX = Math.Max(Math.Min(value, STICK_MAX), STICK_MIN);
                 txtLeftX.Value = _LeftX;
                 trkLeftX.Value = _LeftX;
                 UpdateStickDrawings();
@@ -103,9 +106,9 @@ namespace HatTASUI
             }
             set
             {
-                _LeftY = Math.Max(Math.Min(value, STICK_MAX), 0);
+                _LeftY = Math.Max(Math.Min(value, STICK_MAX), STICK_MIN);
                 txtLeftY.Value = _LeftY;
-                trkLeftY.Value = -_LeftY;
+                trkLeftY.Value = _LeftY;
                 UpdateStickDrawings();
                 if (UpdateDictionary("LY", LeftY))
                     txtLeftY.BackColor = Color.Yellow;
@@ -122,7 +125,7 @@ namespace HatTASUI
             }
             set
             {
-                _RightX = Math.Max(Math.Min(value, STICK_MAX), 0);
+                _RightX = Math.Max(Math.Min(value, STICK_MAX), STICK_MIN);
                 txtRightX.Value = _RightX;
                 trkRightX.Value = _RightX;
                 UpdateStickDrawings();
@@ -141,9 +144,9 @@ namespace HatTASUI
             }
             set
             {
-                _RightY = Math.Max(Math.Min(value, STICK_MAX), 0);
+                _RightY = Math.Max(Math.Min(value, STICK_MAX), STICK_MIN);
                 txtRightY.Value = _RightY;
-                trkRightY.Value = -_RightY;
+                trkRightY.Value = _RightY;
                 UpdateStickDrawings();
                 if (UpdateDictionary("RY", RightY))
                     txtRightY.BackColor = Color.Yellow;
@@ -196,8 +199,8 @@ namespace HatTASUI
                 g.DrawEllipse(pen, 0, 0, width - 1, height - 1);
             }
 
-            var imageX = ((float)x / STICK_MAX) * width;
-            var imageY = ((float)y / STICK_MAX) * height;
+            var imageX = ((float)(x + STICK_MAX + 1) / STICK_RANGE) * width;
+            var imageY = ((float)(-y + STICK_MAX + 1) / STICK_RANGE) * height;
             using (var pen = new Pen(Brushes.Black, 3))
             {
                 g.DrawLine(pen, width / 2f, height / 2f, imageX, imageY);
@@ -293,8 +296,8 @@ namespace HatTASUI
         {
             if (e.Button == MouseButtons.Left)
             {
-                LeftX = (int)(((double)e.X / leftStick.Width) * STICK_MAX);
-                LeftY = (int)(((double)e.Y / leftStick.Width) * STICK_MAX);
+                LeftX = (int)(((double)e.X / leftStick.Width) * STICK_RANGE) + STICK_MIN;
+                LeftY = (int)(((double)e.Y / leftStick.Width) * STICK_RANGE) + STICK_MIN;
             }
         }
 
@@ -302,8 +305,8 @@ namespace HatTASUI
         {
             if (e.Button == MouseButtons.Left)
             {
-                RightX = (int)(((double)e.X / rightStick.Width) * STICK_MAX);
-                RightY = (int)(((double)e.Y / rightStick.Width) * STICK_MAX);
+                RightX = (int)(((double)e.X / rightStick.Width) * STICK_RANGE) + STICK_MIN;
+                RightY = (int)(((double)e.Y / rightStick.Width) * STICK_RANGE) + STICK_MIN;
             }
         }
 
@@ -344,98 +347,98 @@ namespace HatTASUI
 
         private void btnLeftLeft_Click(object sender, EventArgs e)
         {
-            LeftX = 0;
-            LeftY = STICK_MAX / 2;
+            LeftX = STICK_MIN;
+            LeftY = STICK_MID;
         }
 
         private void btnRightLeft_Click(object sender, EventArgs e)
         {
-            RightX = 0;
-            RightY = STICK_MAX / 2;
+            RightX = STICK_MIN;
+            RightY = STICK_MID;
         }
 
         private void btnLeftDown_Click(object sender, EventArgs e)
         {
-            LeftX = STICK_MAX / 2;
-            LeftY = STICK_MAX;
+            LeftX = STICK_MID;
+            LeftY = STICK_MIN;
         }
 
         private void btnRightDown_Click(object sender, EventArgs e)
         {
-            RightX = STICK_MAX / 2;
-            RightY = STICK_MAX;
+            RightX = STICK_MID;
+            RightY = STICK_MIN;
         }
 
         private void btnLeftUp_Click(object sender, EventArgs e)
         {
-            LeftX = STICK_MAX / 2;
-            LeftY = 0;
+            LeftX = STICK_MID;
+            LeftY = STICK_MAX;
         }
 
         private void btnRightUp_Click(object sender, EventArgs e)
         {
-            RightX = STICK_MAX / 2;
-            RightY = 0;
+            RightX = STICK_MID;
+            RightY = STICK_MAX;
         }
 
         private void btnLeftRight_Click(object sender, EventArgs e)
         {
             LeftX = STICK_MAX;
-            LeftY = STICK_MAX / 2;
+            LeftY = STICK_MID;
         }
 
         private void btnRightRight_Click(object sender, EventArgs e)
         {
             RightX = STICK_MAX;
-            RightY = STICK_MAX / 2;
+            RightY = STICK_MID;
         }
 
         private void btnLeftDownLeft_Click(object sender, EventArgs e)
         {
-            LeftX = 0;
-            LeftY = STICK_MAX;
+            LeftX = STICK_MIN;
+            LeftY = STICK_MIN;
         }
 
         private void btnRightDownLeft_Click(object sender, EventArgs e)
         {
-            RightX = 0;
-            RightY = STICK_MAX;
+            RightX = STICK_MIN;
+            RightY = STICK_MIN;
         }
 
         private void btnLeftDownRight_Click(object sender, EventArgs e)
         {
             LeftX = STICK_MAX;
-            LeftY = STICK_MAX;
+            LeftY = STICK_MIN;
         }
 
         private void btnRightDownRight_Click(object sender, EventArgs e)
         {
             RightX = STICK_MAX;
-            RightY = STICK_MAX;
+            RightY = STICK_MIN;
         }
 
         private void btnLeftUpLeft_Click(object sender, EventArgs e)
         {
-            LeftX = 0;
-            LeftY = 0;
+            LeftX = STICK_MIN;
+            LeftY = STICK_MAX;
         }
 
         private void btnRightUpLeft_Click(object sender, EventArgs e)
         {
-            RightX = 0;
-            RightY = 0;
+            RightX = STICK_MIN;
+            RightY = STICK_MAX;
         }
 
         private void btnLeftUpRight_Click(object sender, EventArgs e)
         {
             LeftX = STICK_MAX;
-            LeftY = 0;
+            LeftY = STICK_MAX;
         }
 
         private void btnRightUpRight_Click(object sender, EventArgs e)
         {
             RightX = STICK_MAX;
-            RightY = 0;
+            RightY = STICK_MAX;
         }
 
         private void btnLeftReset_Click(object sender, EventArgs e)
@@ -450,14 +453,14 @@ namespace HatTASUI
 
         private void btnLeftNeutral_Click(object sender, EventArgs e)
         {
-            LeftX = STICK_MAX / 2;
-            LeftY = STICK_MAX / 2;
+            LeftX = STICK_MID;
+            LeftY = STICK_MID;
         }
 
         private void btnRightNeutral_Click(object sender, EventArgs e)
         {
-            RightX = STICK_MAX / 2;
-            RightY = STICK_MAX / 2;
+            RightX = STICK_MID;
+            RightY = STICK_MID;
         }
 
         private void txtLeftY_ValueChanged(object sender, EventArgs e)
@@ -492,12 +495,12 @@ namespace HatTASUI
 
         private void trkLeftY_ValueChanged(object sender, EventArgs e)
         {
-            LeftY = -trkLeftY.Value;
+            LeftY = trkLeftY.Value;
         }
 
         private void trkRightY_ValueChanged(object sender, EventArgs e)
         {
-            RightY = -trkRightY.Value;
+            RightY = trkRightY.Value;
         }
 
         private void Editor_Load(object sender, EventArgs e)
