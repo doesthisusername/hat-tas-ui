@@ -252,14 +252,14 @@ namespace HatTASUI
                     frameNumberSelect.Value = CurrentFrameNumber;
                 else
                     frameNumberSelect.Value = 1;
-
-                if (CurrentFrame != null)
+					
+				if (CurrentFrame != null)
                     txtComment.Text = CurrentFrame.Comment;
                 else
                     txtComment.Text = "";
-            }
+			}
 
-            if (CurrentFrame != null && CurrentFrame.Changes.ContainsKey("SPEED"))
+			if (CurrentFrame != null && CurrentFrame.Changes.ContainsKey("SPEED"))
             {
                 txtSpeed.Text = CurrentFrame.Changes["SPEED"].ToString();
                 txtSpeed.BackColor = Color.Yellow;
@@ -269,7 +269,7 @@ namespace HatTASUI
                 txtSpeed.Text = PreviousFrameState.Inputs["SPEED"].ToString();
                 txtSpeed.BackColor = Color.White;
             }
-        }
+		}
 
         private void UpdateCheckBox(CheckBox chk, string input)
         {
@@ -534,7 +534,7 @@ namespace HatTASUI
         {
             UpdatingCurrentFrame = true;
             Frames.Insert(insertIndex, frame);
-            framesList.Items.Insert(insertIndex, frame.ToListItem());
+            framesList.Items.Insert(insertIndex, frame.ToListItem(framesList.Font, framesList.Width));
             framesList.SelectedIndices.Clear();
             UpdatingCurrentFrame = false;
             framesList.SelectedIndex = insertIndex;
@@ -700,7 +700,8 @@ namespace HatTASUI
             {
                 chk.BackColor = Color.Transparent;
             }
-            Modified = true;
+
+			Modified = true;
         }
 
         private void chkA_CheckedChanged(object sender, EventArgs e)
@@ -779,7 +780,7 @@ namespace HatTASUI
             {
                 CurrentFrame.Comment = txtComment.Text.Trim();
                 UpdatingCurrentFrame = true;
-                framesList.Items[framesList.SelectedIndex] = CurrentFrame.ToListItem();
+                framesList.Items[framesList.SelectedIndex] = CurrentFrame.ToListItem(framesList.Font, framesList.Width);
                 UpdatingCurrentFrame = false;
                 Modified = true;
             }
@@ -837,7 +838,7 @@ namespace HatTASUI
             for (var i = 0; i < Frames.Count; i++)
             {
                 var curFrame = Frames[i];
-                framesList.Items.Add(curFrame.ToListItem());
+                framesList.Items.Add(curFrame.ToListItem(framesList.Font, framesList.Width));
                 if (updateNewFrameSelect && i == Frames.Count - 1)
                     newFrameSelect.Value = curFrame.FrameNumber + 1;
             }

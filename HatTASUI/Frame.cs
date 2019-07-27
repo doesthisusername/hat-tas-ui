@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace HatTASUI
 {
@@ -25,14 +27,47 @@ namespace HatTASUI
             return newFrame;
         }
 
-        public string ToListItem()
+        public string ToListItem(Font font, int listWidth)
         {
-            var result = FrameNumber + "\t";
-            if (!string.IsNullOrEmpty(Comment))
+			var result = FrameNumber.ToString();
+			var defaults = (new FrameState()).Inputs;
+
+			while(TextRenderer.MeasureText(result, font).Width < listWidth - (listWidth - (listWidth / 7)))
+			{
+				result += ' ';
+			}
+
+			foreach(var change in Changes)
+			{
+				if(ValuesEqual(change.Value, defaults[change.Key]))
+				{
+					result += " ~" + change.Key;
+				}
+				else if(change.Key == "SPEED")
+				{
+					result += " SPEED:" + change.Value;
+				}
+				else if(change.Key == "LX" || change.Key == "LY" || change.Key == "RX" || change.Key == "RY")
+				{
+					result += " " + change.Key + ":" + (int)change.Value;
+				}
+				else if((int)change.Value == 1)
+				{
+					result += " " + change.Key;
+				}
+			}
+
+			if (!string.IsNullOrEmpty(Comment))
             {
-                result += Comment;
+				while (TextRenderer.MeasureText(result, font).Width < listWidth - (int)(listWidth / 3.5f))
+				{
+					result += ' ';
+				}
+
+				result += Comment;
             }
-            return result;
+
+			return result;
         }
 
         public override string ToString()
