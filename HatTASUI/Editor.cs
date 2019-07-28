@@ -790,7 +790,7 @@ namespace HatTASUI
         {
             float result = 0f;
             float.TryParse(txtSpeed.Text, out result);
-            if (result <= 0 || result > 100)
+            if (result < 0 || result > 100)
             {
                 result = PreviousFrameState.Inputs["SPEED"];
             }
