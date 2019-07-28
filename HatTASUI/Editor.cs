@@ -297,7 +297,7 @@ namespace HatTASUI
             if (e.Button == MouseButtons.Left)
             {
                 LeftX = (int)(((double)e.X / leftStick.Width) * STICK_RANGE) + STICK_MIN;
-                LeftY = (int)(((double)e.Y / leftStick.Width) * STICK_RANGE) + STICK_MIN;
+                LeftY = -(int)(((double)e.Y / leftStick.Width) * STICK_RANGE) + STICK_MIN + STICK_RANGE;
             }
         }
 
@@ -306,7 +306,7 @@ namespace HatTASUI
             if (e.Button == MouseButtons.Left)
             {
                 RightX = (int)(((double)e.X / rightStick.Width) * STICK_RANGE) + STICK_MIN;
-                RightY = (int)(((double)e.Y / rightStick.Width) * STICK_RANGE) + STICK_MIN;
+                RightY = -(int)(((double)e.Y / rightStick.Width) * STICK_RANGE) + STICK_MIN + STICK_RANGE;
             }
         }
 
