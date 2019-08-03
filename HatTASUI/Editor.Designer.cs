@@ -94,6 +94,8 @@
 			this.chkX = new System.Windows.Forms.CheckBox();
 			this.chkB = new System.Windows.Forms.CheckBox();
 			this.chkA = new System.Windows.Forms.CheckBox();
+			this.chkL3 = new System.Windows.Forms.CheckBox();
+			this.chkR3 = new System.Windows.Forms.CheckBox();
 			this.label2 = new System.Windows.Forms.Label();
 			this.txtSpeed = new System.Windows.Forms.TextBox();
 			this.label5 = new System.Windows.Forms.Label();
@@ -104,8 +106,6 @@
 			this.txtComment = new System.Windows.Forms.TextBox();
 			this.label4 = new System.Windows.Forms.Label();
 			this.offsetSelect = new System.Windows.Forms.NumericUpDown();
-			this.chkL3 = new System.Windows.Forms.CheckBox();
-			this.chkR3 = new System.Windows.Forms.CheckBox();
 			this.tableLayoutPanel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.newFrameSelect)).BeginInit();
 			this.grpSelectedFrame.SuspendLayout();
@@ -929,7 +929,7 @@
 			this.chkSelect.Name = "chkSelect";
 			this.chkSelect.Size = new System.Drawing.Size(104, 17);
 			this.chkSelect.TabIndex = 9;
-			this.chkSelect.Text = "Select";
+			this.chkSelect.Text = "Back";
 			this.chkSelect.UseVisualStyleBackColor = true;
 			this.chkSelect.CheckedChanged += new System.EventHandler(this.chkSelect_CheckedChanged);
 			// 
@@ -1040,6 +1040,30 @@
 			this.chkA.Text = "A";
 			this.chkA.UseVisualStyleBackColor = true;
 			this.chkA.CheckedChanged += new System.EventHandler(this.chkA_CheckedChanged);
+			// 
+			// chkL3
+			// 
+			this.chkL3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+			this.chkL3.AutoSize = true;
+			this.chkL3.Location = new System.Drawing.Point(553, 3);
+			this.chkL3.Name = "chkL3";
+			this.chkL3.Size = new System.Drawing.Size(108, 17);
+			this.chkL3.TabIndex = 14;
+			this.chkL3.Text = "L3";
+			this.chkL3.UseVisualStyleBackColor = true;
+			this.chkL3.CheckedChanged += new System.EventHandler(this.chkL3_CheckedChanged);
+			// 
+			// chkR3
+			// 
+			this.chkR3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+			this.chkR3.AutoSize = true;
+			this.chkR3.Location = new System.Drawing.Point(553, 27);
+			this.chkR3.Name = "chkR3";
+			this.chkR3.Size = new System.Drawing.Size(108, 17);
+			this.chkR3.TabIndex = 15;
+			this.chkR3.Text = "R3";
+			this.chkR3.UseVisualStyleBackColor = true;
+			this.chkR3.CheckedChanged += new System.EventHandler(this.chkR3_CheckedChanged);
 			// 
 			// label2
 			// 
@@ -1159,30 +1183,6 @@
 			this.offsetSelect.Name = "offsetSelect";
 			this.offsetSelect.Size = new System.Drawing.Size(75, 20);
 			this.offsetSelect.TabIndex = 16;
-			// 
-			// chkL3
-			// 
-			this.chkL3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-			this.chkL3.AutoSize = true;
-			this.chkL3.Location = new System.Drawing.Point(553, 3);
-			this.chkL3.Name = "chkL3";
-			this.chkL3.Size = new System.Drawing.Size(108, 17);
-			this.chkL3.TabIndex = 14;
-			this.chkL3.Text = "L3";
-			this.chkL3.UseVisualStyleBackColor = true;
-			this.chkL3.CheckedChanged += new System.EventHandler(this.chkL3_CheckedChanged);
-			// 
-			// chkR3
-			// 
-			this.chkR3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
-			this.chkR3.AutoSize = true;
-			this.chkR3.Location = new System.Drawing.Point(553, 27);
-			this.chkR3.Name = "chkR3";
-			this.chkR3.Size = new System.Drawing.Size(108, 17);
-			this.chkR3.TabIndex = 15;
-			this.chkR3.Text = "R3";
-			this.chkR3.UseVisualStyleBackColor = true;
-			this.chkR3.CheckedChanged += new System.EventHandler(this.chkR3_CheckedChanged);
 			// 
 			// Editor
 			// 
