@@ -96,12 +96,16 @@
 			this.chkA = new System.Windows.Forms.CheckBox();
 			this.label2 = new System.Windows.Forms.Label();
 			this.txtSpeed = new System.Windows.Forms.TextBox();
+			this.label5 = new System.Windows.Forms.Label();
+			this.txtRand = new System.Windows.Forms.TextBox();
 			this.label3 = new System.Windows.Forms.Label();
 			this.frameNumberSelect = new System.Windows.Forms.NumericUpDown();
 			this.label1 = new System.Windows.Forms.Label();
 			this.txtComment = new System.Windows.Forms.TextBox();
 			this.label4 = new System.Windows.Forms.Label();
 			this.offsetSelect = new System.Windows.Forms.NumericUpDown();
+			this.chkL3 = new System.Windows.Forms.CheckBox();
+			this.chkR3 = new System.Windows.Forms.CheckBox();
 			this.tableLayoutPanel1.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.newFrameSelect)).BeginInit();
 			this.grpSelectedFrame.SuspendLayout();
@@ -346,15 +350,18 @@
 			// 
 			// tableLayoutPanel2
 			// 
-			this.tableLayoutPanel2.ColumnCount = 3;
+			this.tableLayoutPanel2.ColumnCount = 4;
 			this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 101F));
 			this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 237F));
-			this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 338F));
+			this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 101F));
+			this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 237F));
 			this.tableLayoutPanel2.Controls.Add(this.grpLeftStick, 0, 0);
 			this.tableLayoutPanel2.Controls.Add(this.grpRightStick, 2, 0);
 			this.tableLayoutPanel2.Controls.Add(this.grpButtons, 0, 1);
 			this.tableLayoutPanel2.Controls.Add(this.label2, 0, 2);
 			this.tableLayoutPanel2.Controls.Add(this.txtSpeed, 1, 2);
+			this.tableLayoutPanel2.Controls.Add(this.label5, 2, 2);
+			this.tableLayoutPanel2.Controls.Add(this.txtRand, 3, 2);
 			this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tableLayoutPanel2.Location = new System.Drawing.Point(3, 16);
 			this.tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -594,6 +601,7 @@
 			// 
 			// grpRightStick
 			// 
+			this.tableLayoutPanel2.SetColumnSpan(this.grpRightStick, 2);
 			this.grpRightStick.Controls.Add(this.tableLayoutPanel5);
 			this.grpRightStick.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.grpRightStick.Location = new System.Drawing.Point(341, 3);
@@ -820,7 +828,7 @@
 			// 
 			// grpButtons
 			// 
-			this.tableLayoutPanel2.SetColumnSpan(this.grpButtons, 3);
+			this.tableLayoutPanel2.SetColumnSpan(this.grpButtons, 4);
 			this.grpButtons.Controls.Add(this.tableLayoutPanel3);
 			this.grpButtons.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.grpButtons.Location = new System.Drawing.Point(3, 341);
@@ -832,12 +840,13 @@
 			// 
 			// tableLayoutPanel3
 			// 
-			this.tableLayoutPanel3.ColumnCount = 5;
-			this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-			this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-			this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-			this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
-			this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 20F));
+			this.tableLayoutPanel3.ColumnCount = 6;
+			this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66778F));
+			this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66778F));
+			this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66778F));
+			this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66778F));
+			this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66444F));
+			this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 16.66445F));
 			this.tableLayoutPanel3.Controls.Add(this.chkRight, 3, 2);
 			this.tableLayoutPanel3.Controls.Add(this.chkUp, 2, 2);
 			this.tableLayoutPanel3.Controls.Add(this.chkDown, 1, 2);
@@ -852,6 +861,8 @@
 			this.tableLayoutPanel3.Controls.Add(this.chkX, 2, 0);
 			this.tableLayoutPanel3.Controls.Add(this.chkB, 1, 0);
 			this.tableLayoutPanel3.Controls.Add(this.chkA, 0, 0);
+			this.tableLayoutPanel3.Controls.Add(this.chkL3, 5, 0);
+			this.tableLayoutPanel3.Controls.Add(this.chkR3, 5, 1);
 			this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.tableLayoutPanel3.Location = new System.Drawing.Point(3, 16);
 			this.tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -866,9 +877,9 @@
 			// 
 			this.chkRight.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
 			this.chkRight.AutoSize = true;
-			this.chkRight.Location = new System.Drawing.Point(399, 52);
+			this.chkRight.Location = new System.Drawing.Point(333, 52);
 			this.chkRight.Name = "chkRight";
-			this.chkRight.Size = new System.Drawing.Size(126, 17);
+			this.chkRight.Size = new System.Drawing.Size(104, 17);
 			this.chkRight.TabIndex = 13;
 			this.chkRight.Text = "D Right";
 			this.chkRight.UseVisualStyleBackColor = true;
@@ -878,9 +889,9 @@
 			// 
 			this.chkUp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
 			this.chkUp.AutoSize = true;
-			this.chkUp.Location = new System.Drawing.Point(267, 52);
+			this.chkUp.Location = new System.Drawing.Point(223, 52);
 			this.chkUp.Name = "chkUp";
-			this.chkUp.Size = new System.Drawing.Size(126, 17);
+			this.chkUp.Size = new System.Drawing.Size(104, 17);
 			this.chkUp.TabIndex = 12;
 			this.chkUp.Text = "D Up";
 			this.chkUp.UseVisualStyleBackColor = true;
@@ -890,9 +901,9 @@
 			// 
 			this.chkDown.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
 			this.chkDown.AutoSize = true;
-			this.chkDown.Location = new System.Drawing.Point(135, 52);
+			this.chkDown.Location = new System.Drawing.Point(113, 52);
 			this.chkDown.Name = "chkDown";
-			this.chkDown.Size = new System.Drawing.Size(126, 17);
+			this.chkDown.Size = new System.Drawing.Size(104, 17);
 			this.chkDown.TabIndex = 11;
 			this.chkDown.Text = "D Down";
 			this.chkDown.UseVisualStyleBackColor = true;
@@ -904,7 +915,7 @@
 			this.chkLeft.AutoSize = true;
 			this.chkLeft.Location = new System.Drawing.Point(3, 52);
 			this.chkLeft.Name = "chkLeft";
-			this.chkLeft.Size = new System.Drawing.Size(126, 17);
+			this.chkLeft.Size = new System.Drawing.Size(104, 17);
 			this.chkLeft.TabIndex = 10;
 			this.chkLeft.Text = "D Left";
 			this.chkLeft.UseVisualStyleBackColor = true;
@@ -914,9 +925,9 @@
 			// 
 			this.chkSelect.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
 			this.chkSelect.AutoSize = true;
-			this.chkSelect.Location = new System.Drawing.Point(531, 27);
+			this.chkSelect.Location = new System.Drawing.Point(443, 27);
 			this.chkSelect.Name = "chkSelect";
-			this.chkSelect.Size = new System.Drawing.Size(130, 17);
+			this.chkSelect.Size = new System.Drawing.Size(104, 17);
 			this.chkSelect.TabIndex = 9;
 			this.chkSelect.Text = "Select";
 			this.chkSelect.UseVisualStyleBackColor = true;
@@ -926,9 +937,9 @@
 			// 
 			this.chkRT.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
 			this.chkRT.AutoSize = true;
-			this.chkRT.Location = new System.Drawing.Point(399, 27);
+			this.chkRT.Location = new System.Drawing.Point(333, 27);
 			this.chkRT.Name = "chkRT";
-			this.chkRT.Size = new System.Drawing.Size(126, 17);
+			this.chkRT.Size = new System.Drawing.Size(104, 17);
 			this.chkRT.TabIndex = 8;
 			this.chkRT.Text = "RT";
 			this.chkRT.UseVisualStyleBackColor = true;
@@ -938,9 +949,9 @@
 			// 
 			this.chkLT.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
 			this.chkLT.AutoSize = true;
-			this.chkLT.Location = new System.Drawing.Point(267, 27);
+			this.chkLT.Location = new System.Drawing.Point(223, 27);
 			this.chkLT.Name = "chkLT";
-			this.chkLT.Size = new System.Drawing.Size(126, 17);
+			this.chkLT.Size = new System.Drawing.Size(104, 17);
 			this.chkLT.TabIndex = 7;
 			this.chkLT.Text = "LT";
 			this.chkLT.UseVisualStyleBackColor = true;
@@ -950,9 +961,9 @@
 			// 
 			this.chkRB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
 			this.chkRB.AutoSize = true;
-			this.chkRB.Location = new System.Drawing.Point(135, 27);
+			this.chkRB.Location = new System.Drawing.Point(113, 27);
 			this.chkRB.Name = "chkRB";
-			this.chkRB.Size = new System.Drawing.Size(126, 17);
+			this.chkRB.Size = new System.Drawing.Size(104, 17);
 			this.chkRB.TabIndex = 6;
 			this.chkRB.Text = "RB";
 			this.chkRB.UseVisualStyleBackColor = true;
@@ -964,7 +975,7 @@
 			this.chkLB.AutoSize = true;
 			this.chkLB.Location = new System.Drawing.Point(3, 27);
 			this.chkLB.Name = "chkLB";
-			this.chkLB.Size = new System.Drawing.Size(126, 17);
+			this.chkLB.Size = new System.Drawing.Size(104, 17);
 			this.chkLB.TabIndex = 5;
 			this.chkLB.Text = "LB";
 			this.chkLB.UseVisualStyleBackColor = true;
@@ -974,9 +985,9 @@
 			// 
 			this.chkStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
 			this.chkStart.AutoSize = true;
-			this.chkStart.Location = new System.Drawing.Point(531, 3);
+			this.chkStart.Location = new System.Drawing.Point(443, 3);
 			this.chkStart.Name = "chkStart";
-			this.chkStart.Size = new System.Drawing.Size(130, 17);
+			this.chkStart.Size = new System.Drawing.Size(104, 17);
 			this.chkStart.TabIndex = 4;
 			this.chkStart.Text = "Start";
 			this.chkStart.UseVisualStyleBackColor = true;
@@ -986,9 +997,9 @@
 			// 
 			this.chkY.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
 			this.chkY.AutoSize = true;
-			this.chkY.Location = new System.Drawing.Point(399, 3);
+			this.chkY.Location = new System.Drawing.Point(333, 3);
 			this.chkY.Name = "chkY";
-			this.chkY.Size = new System.Drawing.Size(126, 17);
+			this.chkY.Size = new System.Drawing.Size(104, 17);
 			this.chkY.TabIndex = 3;
 			this.chkY.Text = "Y";
 			this.chkY.UseVisualStyleBackColor = true;
@@ -998,9 +1009,9 @@
 			// 
 			this.chkX.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
 			this.chkX.AutoSize = true;
-			this.chkX.Location = new System.Drawing.Point(267, 3);
+			this.chkX.Location = new System.Drawing.Point(223, 3);
 			this.chkX.Name = "chkX";
-			this.chkX.Size = new System.Drawing.Size(126, 17);
+			this.chkX.Size = new System.Drawing.Size(104, 17);
 			this.chkX.TabIndex = 2;
 			this.chkX.Text = "X";
 			this.chkX.UseVisualStyleBackColor = true;
@@ -1010,9 +1021,9 @@
 			// 
 			this.chkB.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
 			this.chkB.AutoSize = true;
-			this.chkB.Location = new System.Drawing.Point(135, 3);
+			this.chkB.Location = new System.Drawing.Point(113, 3);
 			this.chkB.Name = "chkB";
-			this.chkB.Size = new System.Drawing.Size(126, 17);
+			this.chkB.Size = new System.Drawing.Size(104, 17);
 			this.chkB.TabIndex = 1;
 			this.chkB.Text = "B";
 			this.chkB.UseVisualStyleBackColor = true;
@@ -1024,7 +1035,7 @@
 			this.chkA.AutoSize = true;
 			this.chkA.Location = new System.Drawing.Point(3, 3);
 			this.chkA.Name = "chkA";
-			this.chkA.Size = new System.Drawing.Size(126, 17);
+			this.chkA.Size = new System.Drawing.Size(104, 17);
 			this.chkA.TabIndex = 0;
 			this.chkA.Text = "A";
 			this.chkA.UseVisualStyleBackColor = true;
@@ -1048,6 +1059,25 @@
 			this.txtSpeed.Size = new System.Drawing.Size(75, 20);
 			this.txtSpeed.TabIndex = 5;
 			this.txtSpeed.Validated += new System.EventHandler(this.txtSpeed_Validated);
+			// 
+			// label5
+			// 
+			this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+			this.label5.AutoSize = true;
+			this.label5.Location = new System.Drawing.Point(341, 445);
+			this.label5.Name = "label5";
+			this.label5.Size = new System.Drawing.Size(95, 13);
+			this.label5.TabIndex = 14;
+			this.label5.Text = "Random Numbers:";
+			// 
+			// txtRand
+			// 
+			this.txtRand.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+			this.txtRand.Location = new System.Drawing.Point(442, 441);
+			this.txtRand.Name = "txtRand";
+			this.txtRand.Size = new System.Drawing.Size(231, 20);
+			this.txtRand.TabIndex = 15;
+			this.txtRand.Validated += new System.EventHandler(this.txtRand_Validated);
 			// 
 			// label3
 			// 
@@ -1129,6 +1159,30 @@
 			this.offsetSelect.Name = "offsetSelect";
 			this.offsetSelect.Size = new System.Drawing.Size(75, 20);
 			this.offsetSelect.TabIndex = 16;
+			// 
+			// chkL3
+			// 
+			this.chkL3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+			this.chkL3.AutoSize = true;
+			this.chkL3.Location = new System.Drawing.Point(553, 3);
+			this.chkL3.Name = "chkL3";
+			this.chkL3.Size = new System.Drawing.Size(108, 17);
+			this.chkL3.TabIndex = 14;
+			this.chkL3.Text = "L3";
+			this.chkL3.UseVisualStyleBackColor = true;
+			this.chkL3.CheckedChanged += new System.EventHandler(this.chkL3_CheckedChanged);
+			// 
+			// chkR3
+			// 
+			this.chkR3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
+			this.chkR3.AutoSize = true;
+			this.chkR3.Location = new System.Drawing.Point(553, 27);
+			this.chkR3.Name = "chkR3";
+			this.chkR3.Size = new System.Drawing.Size(108, 17);
+			this.chkR3.TabIndex = 15;
+			this.chkR3.Text = "R3";
+			this.chkR3.UseVisualStyleBackColor = true;
+			this.chkR3.CheckedChanged += new System.EventHandler(this.chkR3_CheckedChanged);
 			// 
 			// Editor
 			// 
@@ -1256,6 +1310,10 @@
         private System.Windows.Forms.NumericUpDown frameNumberSelect;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.NumericUpDown offsetSelect;
-    }
+		private System.Windows.Forms.Label label5;
+		private System.Windows.Forms.TextBox txtRand;
+		private System.Windows.Forms.CheckBox chkL3;
+		private System.Windows.Forms.CheckBox chkR3;
+	}
 }
 

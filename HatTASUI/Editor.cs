@@ -240,11 +240,13 @@ namespace HatTASUI
             UpdateCheckBox(chkRB, "RB");
             UpdateCheckBox(chkLT, "LT");
             UpdateCheckBox(chkRT, "RT");
-            UpdateCheckBox(chkSelect, "SELECT");
+            UpdateCheckBox(chkSelect, "BACK");
             UpdateCheckBox(chkLeft, "LEFT");
             UpdateCheckBox(chkDown, "DOWN");
             UpdateCheckBox(chkUp, "UP");
             UpdateCheckBox(chkRight, "RIGHT");
+			UpdateCheckBox(chkL3, "L3");
+			UpdateCheckBox(chkR3, "R3");
 
             if (!UpdatingCurrentFrame)
             {
@@ -269,6 +271,34 @@ namespace HatTASUI
                 txtSpeed.Text = PreviousFrameState.Inputs["SPEED"].ToString();
                 txtSpeed.BackColor = Color.White;
             }
+
+			if (CurrentFrame != null)
+			{
+				if(CurrentFrame.Random == string.Empty)
+				{
+					// Not good
+					var start = IndexOfFrame(CurrentFrameNumber);
+					while(Frames[start].Random == string.Empty)
+					{
+						start--;
+						if(start == -1)
+							break;
+					}
+
+					txtRand.Text = start == -1 ? "0" : Frames[start].Random;
+					txtRand.BackColor = Color.White;
+				}
+				else
+				{
+					txtRand.Text = CurrentFrame.Random;
+					txtRand.BackColor = Color.Yellow;
+				}
+			}
+			else
+			{
+				txtRand.Text = PreviousFrameState.Random;
+				txtRand.BackColor = Color.White;
+			}
 		}
 
         private void UpdateCheckBox(CheckBox chk, string input)
@@ -316,7 +346,7 @@ namespace HatTASUI
             var upToIndex = IndexOfFrame(upToFrame);
             for (var index = 0; index < upToIndex; index++)
             {
-                PreviousFrameState.UpdateFromChanges(Frames[index].Changes);
+                PreviousFrameState.UpdateFromChanges(Frames[index].Changes, Frames[index].Random);
             }
         }
 
@@ -344,6 +374,21 @@ namespace HatTASUI
             }
             return false;
         }
+
+		private bool UpdateRandom(string value)
+		{
+			if (CurrentFrame != null)
+			{
+				var previousValue = PreviousFrameState.Random;
+				if(previousValue != value)
+				{
+					CurrentFrame.Random = value;
+					return true;
+				}
+				CurrentFrame.Random = string.Empty;
+			}
+			return false;
+		}
 
         private void btnLeftLeft_Click(object sender, EventArgs e)
         {
@@ -751,7 +796,7 @@ namespace HatTASUI
 
         private void chkSelect_CheckedChanged(object sender, EventArgs e)
         {
-            UpdateButton(chkSelect, "SELECT");
+            UpdateButton(chkSelect, "BACK");
         }
 
         private void chkLeft_CheckedChanged(object sender, EventArgs e)
@@ -774,7 +819,17 @@ namespace HatTASUI
             UpdateButton(chkRight, "RIGHT");
         }
 
-        private void txtComment_TextChanged(object sender, EventArgs e)
+		private void chkL3_CheckedChanged(object sender, EventArgs e)
+		{
+			UpdateButton(chkL3, "L3");
+		}
+
+		private void chkR3_CheckedChanged(object sender, EventArgs e)
+		{
+			UpdateButton(chkR3, "R3");
+		}
+
+		private void txtComment_TextChanged(object sender, EventArgs e)
         {
             if (CurrentFrame != null)
             {
@@ -806,7 +861,39 @@ namespace HatTASUI
             Modified = true;
         }
 
-        private void btnSave_Click(object sender, EventArgs e)
+		private void txtRand_Validated(object sender, EventArgs e)
+		{
+			string result = txtRand.Text;
+			bool valid = true;
+
+			foreach(string number in result.Split(','))
+			{
+				if(!short.TryParse(number, out short tmp) || tmp < 0)
+				{
+					valid = false;
+					break;
+				}
+			}
+
+			if(valid && UpdateRandom(result))
+			{
+				txtRand.BackColor = Color.Yellow;
+			}
+			else
+			{
+				txtRand.Text = PreviousFrameState.Random;
+				txtRand.BackColor = Color.White;
+			}
+
+			if (!valid)
+			{
+				MessageBox.Show("The random number format is not correct.", "Random Number Format", MessageBoxButtons.OK, MessageBoxIcon.Error);
+			}
+
+			Modified = true;
+		}
+
+		private void btnSave_Click(object sender, EventArgs e)
         {
             SaveToFile.Save(Frames, Metadata);
             Modified = false;
@@ -898,5 +985,5 @@ namespace HatTASUI
 				btnOpen_Click(this, null);
 			}
         }
-    }
+	}
 }

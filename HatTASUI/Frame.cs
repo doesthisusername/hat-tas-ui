@@ -10,12 +10,14 @@ namespace HatTASUI
     {
         public int FrameNumber { get; set; }
         public IDictionary<string, float> Changes { get; set; }
+		public string Random { get; set; }
         public string Comment { get; set; }
 
         public Frame(int frameNumber)
         {
             FrameNumber = frameNumber;
             Changes = new Dictionary<string, float>();
+			Random = string.Empty;
             Comment = string.Empty;
         }
 
@@ -23,6 +25,7 @@ namespace HatTASUI
         {
             var newFrame = new Frame(FrameNumber);
             newFrame.Changes = Changes.ToDictionary(x => x.Key, x => x.Value);
+			newFrame.Random = Random;
             newFrame.Comment = Comment;
             return newFrame;
         }
@@ -30,7 +33,7 @@ namespace HatTASUI
         public string ToListItem(Font font, int listWidth)
         {
 			var result = FrameNumber.ToString();
-			var defaults = (new FrameState()).Inputs;
+			var defaults = new FrameState();
 
 			while(TextRenderer.MeasureText(result, font).Width < listWidth - (listWidth - (listWidth / 7)))
 			{
@@ -39,7 +42,7 @@ namespace HatTASUI
 
 			foreach(var change in Changes)
 			{
-				if(ValuesEqual(change.Value, defaults[change.Key]))
+				if(ValuesEqual(change.Value, defaults.Inputs[change.Key]))
 				{
 					result += " ~" + change.Key;
 				}
@@ -54,6 +57,18 @@ namespace HatTASUI
 				else if((int)change.Value == 1)
 				{
 					result += " " + change.Key;
+				}
+			}
+
+			if(Random != string.Empty)
+			{
+				if(Random == defaults.Random)
+				{
+					result += " ~RNG";
+				}
+				else
+				{
+					result += " RNG:" + Random;
 				}
 			}
 
@@ -73,10 +88,10 @@ namespace HatTASUI
         public override string ToString()
         {
             var result = FrameNumber.ToString("000000") + ":";
-            var defaults = (new FrameState()).Inputs;
+            var defaults = new FrameState();
             foreach (var change in Changes)
             {               
-                if (ValuesEqual(change.Value, defaults[change.Key]))
+                if (ValuesEqual(change.Value, defaults.Inputs[change.Key]))
                 {
                     result += " ~" + change.Key;
                 }
@@ -93,7 +108,20 @@ namespace HatTASUI
                     result += " " + change.Key;
                 }
             }
-            if (!string.IsNullOrEmpty(Comment))
+
+			if(Random != string.Empty)
+			{
+				if(Random == defaults.Random)
+				{
+					result += " ~RNG";
+				}
+				else
+				{
+					result += " RNG:" + Random;
+				}
+			}
+
+			if (!string.IsNullOrEmpty(Comment))
             {
                 result += new string(' ', Math.Max(35 - result.Length, 0))
                           + " // " + Comment;
@@ -104,14 +132,22 @@ namespace HatTASUI
         public static Frame FromString(string line)
         {
             var split = line.Split(new string[] { ": " }, 2, StringSplitOptions.None);
+			if (split.Length == 1)
+				return null;
+
             var frame = new Frame(int.Parse(split[0]));
 
             var commentSplit = split[1].Split(new string[] { "//" }, 2, StringSplitOptions.None);
+
             if (commentSplit.Length > 1)
                 frame.Comment = commentSplit[1].Trim();
 
             var tokens = commentSplit[0].Trim().Split(' ');
-            var defaults = (new FrameState()).Inputs;
+
+			if(tokens.Length == 0)
+				return null;
+
+            var defaults = new FrameState();
             foreach (var token in tokens)
             {
                 var tokenSplit = token.Split(':');
@@ -119,6 +155,14 @@ namespace HatTASUI
                 {
                     frame.Changes.Add("SPEED", float.Parse(tokenSplit[1]));
                 }
+				else if (tokenSplit[0] == "RNG")
+				{
+					frame.Random = tokenSplit[1];
+				}
+				else if (token == "~RNG")
+				{
+					frame.Random = defaults.Random;
+				}
                 else if (tokenSplit.Length > 1)
                 {
                     frame.Changes.Add(tokenSplit[0], int.Parse(tokenSplit[1]));
@@ -126,7 +170,7 @@ namespace HatTASUI
                 else if (token.StartsWith("~"))
                 {
                     var input = token.Substring(1);
-                    frame.Changes.Add(input, defaults[input]);
+                    frame.Changes.Add(input, defaults.Inputs[input]);
                 }
                 else
                 {

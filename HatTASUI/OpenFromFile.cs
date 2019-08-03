@@ -33,7 +33,8 @@ namespace HatTASUI
                     {
                         if (char.IsDigit(line[0]))
                         {
-                            frames.Add(Frame.FromString(line));
+							var frame = Frame.FromString(line);
+                            if(frame != null) frames.Add(frame);
                         }
                         else
                         {
